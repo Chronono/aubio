@@ -46,7 +46,6 @@ default_skip_objects = [
     #'sampler',
     'audio_unit',
     'spectral_whitening',
-    'timestretch', # TODO fix parsing of uint_t *read in _do
 ]
 
 
@@ -121,24 +120,23 @@ def get_cpp_output(header=header, usedouble=False):
     print("Running command: {:s}".format(" ".join(cpp_cmd)))
     proc = subprocess.Popen(cpp_cmd,
                             stderr=subprocess.PIPE,
-                            stdout=subprocess.PIPE,
-                            universal_newlines=True)
+                            stdout=subprocess.PIPE)
     assert proc, 'Proc was none'
     cpp_output = proc.stdout.read()
     err_output = proc.stderr.read()
     if err_output:
         print("Warning: preprocessor produced errors or warnings:\n%s" \
-                % err_output)
+                % err_output.decode('utf8'))
     if not cpp_output:
         raise_msg = "preprocessor output is empty! Running command " \
                 + "\"%s\" failed" % " ".join(cpp_cmd)
         if err_output:
-            raise_msg += " with stderr: \"%s\"" % err_output
+            raise_msg += " with stderr: \"%s\"" % err_output.decode('utf8')
         else:
             raise_msg += " with no stdout or stderr"
         raise Exception(raise_msg)
     if not isinstance(cpp_output, list):
-        cpp_output = [l.strip() for l in cpp_output.split('\n')]
+        cpp_output = [l.strip() for l in cpp_output.decode('utf8').split('\n')]
 
     return cpp_output
 

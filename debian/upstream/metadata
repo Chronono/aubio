@@ -1,0 +1,12 @@
+Name: aubio
+Documentation: https://aubio.org/doc
+Repository: https://git.aubio.org/aubio/aubio/
+Repository-Browse: https://git.aubio.org/
+Bug-Submit: https://aubio.org/development
+Reference:
+- Author: Paul Brossier
+  Title: Automatic Annotation of Musical Audio for Interactive Applications
+  Type: phdthesis
+  Year: 2006
+  URL: https://aubio.org/phd/
+  Eprint: https://aubio.org/phd/thesis/brossier06thesis.pdf

@@ -1,0 +1,28 @@
+commit c60e048f3aba852710b9763a6fb24adad2017f40
+Author: Paul Brossier <piem@piem.org>
+Date:   Thu Jun 20 19:38:39 2019 +0200
+
+    [py] fix pvoc tests on powerpc
+
+diff --git a/python/tests/test_phasevoc.py b/python/tests/test_phasevoc.py
+index cf3b7ac8..b228269e 100755
+--- a/python/tests/test_phasevoc.py
++++ b/python/tests/test_phasevoc.py
+@@ -1,7 +1,7 @@
+ #! /usr/bin/env python
+ 
+ from numpy.testing import TestCase, assert_equal, assert_array_less
+-from _tools import parametrize
++from _tools import parametrize, skipTest
+ from aubio import fvec, cvec, pvoc, float_type
+ import numpy as np
+ 
+@@ -51,7 +51,7 @@ class Test_aubio_pvoc_test_case(object):
+                 assert_equal (s.phas[s.phas > 0], +np.pi)
+                 assert_equal (s.phas[s.phas < 0], -np.pi)
+                 assert_equal (np.abs(s.phas[np.abs(s.phas) != np.pi]), 0)
+-                self.skipTest('pvoc(fvec(%d)).phas != +0, ' % win_s \
++                skipTest('pvoc(fvec(%d)).phas != +0, ' % win_s \
+                         + 'This is expected when using fftw3 on powerpc.')
+             assert_equal ( r, 0.)
+ 

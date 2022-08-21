@@ -1,12 +1,12 @@
-#! /usr/bin/env bash
+#! /bin/bash
 
 set -e
 #set -x
 
-WAFVERSION=2.0.23
+WAFVERSION=2.0.14
 WAFTARBALL=waf-$WAFVERSION.tar.bz2
 WAFURL=https://waf.io/$WAFTARBALL
-WAFUPSTREAMKEY=https://gitlab.com/ita1024/waf/-/raw/waf-$WAFVERSION/utils/pubkey.asc
+WAFUPSTREAMKEY=https://gitlab.com/ita1024/waf/raw/master/utils/pubkey.asc
 
 WAFBUILDDIR=`mktemp -d`
 
@@ -48,7 +48,7 @@ fetchwaf
 buildwaf
 popd
 
-cp -prv $WAFBUILDDIR/waf-$WAFVERSION/waf "$PWD"
+cp -prv $WAFBUILDDIR/waf-$WAFVERSION/waf $PWD
 chmod +x waf
 
 cleanup

@@ -1,0 +1,10 @@
+Document: libaubio
+Title: Aubio Manual
+Author: Paul Brossier <piem@aubio.org>
+Abstract: This is a programming manual for the libaubio library.
+Section: Programming
+
+Format: HTML
+Index: /usr/share/doc/libaubio-dev/api/index.html
+Files: /usr/share/doc/libaubio-dev/api/*.html
+

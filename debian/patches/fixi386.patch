@@ -1,0 +1,77 @@
+Description: relax precision for tests to pass on i386
+ This patch include upstream commits 5039244..099237f to relax precision
+ tests so that they pass on i386.
+Author: Paul Brossier <piem@debian.org>
+Forwarded: not-needed
+Last-Update: 2019-06-21
+
+diff --git a/python/tests/test_hztomel.py b/python/tests/test_hztomel.py
+index fcd8fa1d..a1f4f8e9 100755
+--- a/python/tests/test_hztomel.py
++++ b/python/tests/test_hztomel.py
+@@ -4,23 +4,28 @@ from unittest import main
+ from numpy.testing import TestCase
+ from numpy.testing import assert_equal, assert_almost_equal
+ from _tools import assert_warns
++from utils import is32bit
+ import numpy as np
+ import aubio
+ 
+ from aubio import hztomel, meltohz
+ from aubio import hztomel_htk, meltohz_htk
+ 
+-
+ class aubio_hztomel_test_case(TestCase):
+ 
+     def test_hztomel(self):
+         assert_equal(hztomel(0.), 0.)
+         assert_almost_equal(hztomel(400. / 3.), 2., decimal=5)
+         assert_almost_equal(hztomel(1000. / 3), 5.)
+-        assert_equal(hztomel(200.), 3.)
++        # on 32bit, some of these tests fails unless compiling with -ffloat-store
++        try:
++            assert_equal(hztomel(200.), 3.)
++        except AssertionError:
++            if not is32bit(): raise
++            assert_almost_equal(hztomel(200.), 3., decimal=5)
+         assert_almost_equal(hztomel(1000.), 15)
+-        assert_almost_equal(hztomel(6400), 42)
+-        assert_almost_equal(hztomel(40960), 69)
++        assert_almost_equal(hztomel(6400), 42, decimal=5)
++        assert_almost_equal(hztomel(40960), 69, decimal=5)
+ 
+         for m in np.linspace(0, 1000, 100):
+             assert_almost_equal(hztomel(meltohz(m)) - m, 0, decimal=3)
+@@ -28,7 +33,11 @@ class aubio_hztomel_test_case(TestCase):
+     def test_meltohz(self):
+         assert_equal(meltohz(0.), 0.)
+         assert_almost_equal(meltohz(2), 400. / 3., decimal=4)
+-        assert_equal(meltohz(3.), 200.)
++        try:
++            assert_equal(meltohz(3.), 200.)
++        except AssertionError:
++            if not is32bit(): raise
++            assert_almost_equal(meltohz(3.), 200., decimal=5)
+         assert_almost_equal(meltohz(5), 1000. / 3., decimal=4)
+         assert_almost_equal(meltohz(15), 1000., decimal=4)
+         assert_almost_equal(meltohz(42), 6400., decimal=2)
+diff --git a/python/tests/utils.py b/python/tests/utils.py
+index 4b414883..76064042 100644
+--- a/python/tests/utils.py
++++ b/python/tests/utils.py
+@@ -3,11 +3,15 @@
+ import os
+ import re
+ import glob
++import struct
+ import numpy as np
+ from tempfile import mkstemp
+ 
+ DEFAULT_SOUND = '22050Hz_5s_brownnoise.wav'
+ 
++def is32bit():
++    return struct.calcsize("P") * 8 == 32
++
+ def array_from_text_file(filename, dtype = 'float'):
+     realpathname = os.path.join(os.path.dirname(__file__), filename)
+     return np.loadtxt(realpathname, dtype = dtype)

@@ -97,7 +97,7 @@ ax3.plot(times, confidences)
 # draw a line at tolerance
 ax3.plot(times, [tolerance]*len(confidences))
 ax3.axis( xmin = times[0], xmax = times[-1])
-ax3.set_ylabel('confidence')
+ax3.set_ylabel('condidence')
 set_xlabels_sample2time(ax3, times[-1], samplerate)
 plt.show()
 #plt.savefig(os.path.basename(filename) + '.svg')

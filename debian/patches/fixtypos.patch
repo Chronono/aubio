@@ -1,0 +1,45 @@
+Description: fix typos
+ This patch includes upstream commits 98927ca..8e84c46 to fix typos.
+Author: Paul Brossier <piem@debian.org>
+Forwarded: not-needed
+Last-Update: 2019-06-20
+
+diff --git a/python/ext/aubio-docstrings.h b/python/ext/aubio-docstrings.h
+index 2929ee12..26cada03 100644
+--- a/python/ext/aubio-docstrings.h
++++ b/python/ext/aubio-docstrings.h
+@@ -1,7 +1,7 @@
+ #define PYAUBIO_dct_doc \
+     "dct(size=1024)\n"\
+     "\n"\
+-    "Compute Discrete Fourier Transorms of Type-II.\n"\
++    "Compute Discrete Fourier Transforms of Type-II.\n"\
+     "\n"\
+     "Parameters\n"\
+     "----------\n"\
+diff --git a/python/ext/py-fft.c b/python/ext/py-fft.c
+index a08af4e7..53dfbbfd 100644
+--- a/python/ext/py-fft.c
++++ b/python/ext/py-fft.c
+@@ -3,7 +3,7 @@
+ static char Py_fft_doc[] = ""
+ "fft(size=1024)\n"
+ "\n"
+-"Compute Fast Fourier Transorms.\n"
++"Compute Fast Fourier Transforms.\n"
+ "\n"
+ "Parameters\n"
+ "----------\n"
+diff --git a/python/ext/py-sink.c b/python/ext/py-sink.c
+index 4fc514f2..83c7ddd1 100644
+--- a/python/ext/py-sink.c
++++ b/python/ext/py-sink.c
+@@ -81,7 +81,7 @@ static char Py_sink_close_doc[] = ""
+ "Close this sink now.\n"
+ "\n"
+ "By default, the sink will be closed before being deleted.\n"
+-"Explicitely closing a sink can be useful to control the number\n"
++"Explicitly closing a sink can be useful to control the number\n"
+ "of files simultaneously opened.\n"
+ "";
+ 

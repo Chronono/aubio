@@ -32,7 +32,6 @@
 #endif /* HAVE_JACK */
 
 int verbose = 0;
-int quiet = 0;
 int usejack = 0;
 // input / output
 char_t *sink_uri = NULL;
@@ -170,7 +169,7 @@ void examples_common_process (aubio_process_func_t process_func,
       aubio_source_do (this_source, input_buffer, &read);
       process_func (input_buffer, output_buffer);
       // print to console if verbose or no output given
-      if ((verbose || sink_uri == NULL) && !quiet) {
+      if (verbose || sink_uri == NULL) {
         print();
       }
       if (this_sink) {

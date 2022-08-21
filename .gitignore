@@ -52,3 +52,5 @@ python/tests/sounds
 aubio.egg-info
 .eggs
 .cache
+*.swo
+*.swp

@@ -1,0 +1,4 @@
+waflib/*.pyc
+waflib/*/*.pyc
+build/
+.lock-waf_*

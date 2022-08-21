@@ -1,0 +1,26 @@
+Description: use current interpreter to create test sound files
+ This patch ensures the current interpreter is used to run create_tests_source.
+Author: Paul Brossier <piem@debian.org>
+Forwarded: not-needed
+Last-Update: 2020-01-02
+
+Index: aubio/tests/wscript_build
+===================================================================
+--- aubio.orig/tests/wscript_build
++++ aubio/tests/wscript_build
+@@ -1,5 +1,6 @@
+ # vim:set syntax=python:
+ 
++import sys
+ import os.path
+ 
+ uselib = ['aubio']
+@@ -13,7 +14,7 @@ test_sound_abspath = bld.path.get_bld().
+ test_sound_abspath = str(test_sound_abspath).replace('\\', '\\\\')
+ 
+ b = bld(name='create_tests_source',
+-    rule='python ${SRC} ${TGT}',
++    rule=sys.executable + ' ${SRC} ${TGT}',
+     source='create_tests_source.py',
+     target=test_sound_target)
+ # use post() to create the task, keep a reference to it

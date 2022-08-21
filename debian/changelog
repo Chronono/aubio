@@ -1,0 +1,397 @@
+aubio (0.4.9-4) unstable; urgency=medium
+
+  * debian/tests/control: remove py2 tests
+
+ -- Paul Brossier <piem@debian.org>  Wed, 08 Jan 2020 13:39:53 +0100
+
+aubio (0.4.9-3) unstable; urgency=medium
+
+  * debian/control: remove python-aubio package (closes: #936161)
+  * debian/rules: use only python3, cleaner py3 clean
+  * debian/patches/wscript_py3.patch: add patch to build with current python
+  * debian/upstream/metadata: add basic upstream description and reference
+  * debian/control: bump to debhelper-compat 12, remove debian/compat,
+    bump S-V to 4.4.1, add Rules-Requires-Root: no
+  * debian/aubio-tools.manpages: install from debian/tmp
+  * debian/libaubio-doc.*: move html doc to /u/s/d/libaubio-dev/api
+  * debian/libaubio-doc.doc-base: update author email
+  * debian/libaubio-doc.links: fix jquery link
+
+ -- Paul Brossier <piem@debian.org>  Sat, 04 Jan 2020 18:34:15 +0100
+
+aubio (0.4.9-2) unstable; urgency=medium
+
+  * Add upstream patches to fix FTBFS on powerpc and i386
+
+ -- Paul Brossier <piem@debian.org>  Fri, 21 Jun 2019 14:46:30 +0200
+
+aubio (0.4.9-1) unstable; urgency=medium
+
+  * New upstream version 0.4.9 (closes: #480018, #930186)
+  * Fixes security issues (CVE-2018-19800, CVE-2018-19801, CVE-2018-19802)
+  * debian/tests/control: also install built binaries
+  * debian/patches: remove patches integrated upstream
+  * debian/control: bump to S-V 4.3.0
+  * debian/control, debian/tests: switch b-d from nose2 to pytest
+  * debian/rules: switch to pytest, update clean target
+  * debian/patches/fixtypos.patch: fix typos
+  * debian/patches/series: remove patches integrated upstream
+  * debian/libaubio-doc.dob-base: move documentation to api folder
+  * debian/libaubio5.symbols: add new symbols since 0.4.8, remove unused
+    symbols previously exported, add Build-Depends-Package field
+  * debian/upstream/signing-key.asc: minimize key export
+
+ -- Paul Brossier <piem@debian.org>  Thu, 20 Jun 2019 12:01:41 +0200
+
+aubio (0.4.6-2) unstable; urgency=medium
+
+  * debian/tests/control: add minimal dependencies
+  * debian/rules: use hardening=+all, enabling bindnow
+  * debian/control:
+    - python3-aubio: use Python 3 for long description
+    - libaubio-dev: add Multi-Arch: same
+    - libaubio-doc: add Multi-Arch: foreign
+  * debian/copyright: use https urls
+  * debian/patches/examples_proto.patch: fix gcc 8 warning
+  * debian/libaubio5.symbols: add list of symbols since 0.4.3
+
+ -- Paul Brossier <piem@debian.org>  Fri, 14 Sep 2018 16:57:22 +0200
+
+aubio (0.4.6-1) unstable; urgency=medium
+
+  * New upstream version 0.4.6
+  * Acknowledge NMU (thanks to Sebastian Ramacher, closes: #888336)
+  * debian/watch: use https
+  * debian/copyright: fix file path
+  * debian/control:
+    - remove duplicate Section from aubio-tools
+    - capitalize Python in short descriptions
+    - remove obsolete X-Python fields
+    - bump Standards-Version to 4.2.1
+    - move Vcs-Git and Browser to salsa.d.o
+  * debian/rules:
+    - add a comment to enable bindnow hardening
+    - add -Wl,--as-needed to LDFLAGS
+    - clean waf_gensyms and python/tests/sounds
+  * debian/patches:
+    - add upstream patches to fix security issues
+    - add avoid_deprecated to omit av_register_all() where deprecated
+  * CVE-2017-17054 div by zero, thx to my123px (closes: #883355)
+  * CVE-2017-17554 null pointer dereference, thx to IvanCql (closes: #884237)
+  * CVE-2017-17555 denial of service, thx to IvanCql (closes: #884232)
+  * CVE-2018-14521 SEGV in aubiomfcc, thx to fCorleone (closes: #904908)
+  * CVE-2018-14522 SEGV in aubionotes, thx to fCorleone (closes: #904907)
+  * CVE-2018-14523 global buffer overflow, thx to fCorleone (closes: #904906)
+
+ -- Paul Brossier <piem@debian.org>  Mon, 10 Sep 2018 16:20:59 +0200
+
+aubio (0.4.5-1.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * debian/patches: Fix build with ffmpeg 4.0. (Closes: #888336)
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Wed, 11 Jul 2018 20:52:59 +0200
+
+aubio (0.4.5-1) unstable; urgency=medium
+
+  * New upstream version 0.4.5
+  * Apply patch for 0.4.3-4.1 (thanks to Dr. Tobias Quathamer, closes: #862804)
+  * debian/control: update homepage to https
+  * debian/patches: delete all patches merged upstream
+  * debian/rules: clean sphinx doc, this_version.pyc, and aubio.egg-info
+  * debian/rules: add /usr/bin/aubio to aubio-tools
+  * debian/watch: check upstream signature
+
+ -- Paul Brossier <piem@debian.org>  Mon, 24 Jul 2017 15:11:01 +0200
+
+aubio (0.4.3-4.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Remove python-related alternates from Build-Depends.
+  * Fix d/rules to invoke tests with correct version of Python 3.
+    Thanks to Michael Hudson-Doyle <michael.hudson@ubuntu.com> for
+    the bug report and patch. Closes: #862804
+
+ -- Dr. Tobias Quathamer <toddy@debian.org>  Sun, 02 Jul 2017 17:35:53 +0200
+
+aubio (0.4.3-4) unstable; urgency=medium
+
+  * debian/control: aubio-tools now depends on python3-aubio
+  * debian/control: fix python3 Depends/Suggests for python3-aubio
+  * debian/control: remove old Provides, XB-P-V, and Replaces/Conflicts
+  * debian/python*-aubio.install: removed, use pybuild
+  * debian/patches/pytest_local_import.diff: create python/tests/__init__.py
+  * debian/patches/pytest_local_import.diff: use local imports for python3
+  * debian/patches/sort_pysrc.diff: update to sort existing generated files
+  * debian/patches/cleaner_clean.diff: prevent ./setup.py clean failures
+  * debian/rules: remove old flags, not needed anymore for compat 9
+  * debian/rules: use pybuild to install python packages
+  * debian/rules: customize pybuild to use nose2 tests
+  * debian/rules: simplify clean rule
+
+ -- Paul Brossier <piem@debian.org>  Sun, 27 Nov 2016 22:23:50 +0100
+
+aubio (0.4.3-3) unstable; urgency=medium
+
+  * debian/patches/sort_pysrc.diff: also sort the list of generated files
+  * debian/control: update Vcs-Git to use https
+  * debian/patches/waf_cstlib_inst-8698499.diff: merge upstream, remove
+    hardcoded copy in debian/rules
+  * debian/rules: pass multi-arch libdir
+  * debian/libaubio*.install: install from multi-arch libdir
+  * debian/control: make libaubio5 multi-arch
+  * debian/control: bump to debhelper >=9.0.0
+
+ -- Paul Brossier <piem@debian.org>  Sat, 26 Nov 2016 16:34:33 +0100
+
+aubio (0.4.3-2) unstable; urgency=medium
+
+  * Now at last upstream version (closes: #828039)
+  * debian/patch/skip_ppc64.diff: skip test if fft(zeros).phas != 0 [powerpc]
+    (closes: #843482)
+  * debian/patches/alpha_norm-88c89e3.diff: pull from upstream (avoid random
+    test failures)
+  * debian/patches/sort_pysrc.diff: sort(glob.glob) to improve build
+    reproducibility
+  * debian/patches/avcodec_update.diff: avoid libav deprecation warning
+  * debian/control: update Vcs-Browser
+  * debian/rules: improve test command
+
+ -- Paul Brossier <piem@debian.org>  Mon, 07 Nov 2016 13:18:01 +0100
+
+aubio (0.4.3-1) unstable; urgency=medium
+
+  * Imported Upstream version 0.4.3
+  * debian/patches/wscript_avcodec.patch: merged upstream
+  * debian/patches/local_mathjax.patch: update
+  * debian/patches/fixtests-5d8cc71.patch: use 5s brown noise
+  * debian/rules: add -Wl,--as-needed
+  * debian/rules: update python build, run python tests
+  * debian/control: Standards-Version 3.9.8, debian/compat: 9
+  * debian/control: bump to libaubio5
+  * debian/control: update short description
+
+ -- Paul Brossier <piem@debian.org>  Sun, 06 Nov 2016 01:38:30 +0100
+
+aubio (0.4.2-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Acknowledge NMU, thanks to toddy and sramacher (closes: #806604, #803799).
+  * debian/patches/ffmpeg_2.9.patch: removed
+  * debian/patches/wscript_avcodec.patch: fix avcodec detection
+  * debian/patches/local_mathjax.patch: added .patch
+  * debian/patches/series: update
+  * debian/control: add | liback-jack2-dev, python-setuptools, dh-python
+  * debian/control: bump to Standards-Version 3.9.6
+  * debian/rules: cleaner clean, use python install --root= --prefix=
+  * debian/rules: no more --nocache for waf, force static library install
+
+ -- Paul Brossier <piem@debian.org>  Mon, 15 Aug 2016 13:40:35 +0200
+
+aubio (0.4.1-2.2) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Fix FTBFS when built with dpkg-buildpackage -A.
+    Thanks to Santiago Vila <sanvila@unex.es> (Closes: #806604)
+
+ -- Dr. Tobias Quathamer <toddy@debian.org>  Fri, 05 Aug 2016 17:34:40 +0200
+
+aubio (0.4.1-2.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+
+  [ Andreas Cadhalpun ]
+  * debian/patches/ffmpeg_2.9.patch: Fix build against ffmpeg 3.0. (Closes:
+    #803799)
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 06 Mar 2016 22:06:41 +0100
+
+aubio (0.4.1-2) unstable; urgency=medium
+
+  * debian/control: always Build-Depends on txt2man to include manpages in
+    binary only builds
+
+ -- Paul Brossier <piem@debian.org>  Tue, 25 Mar 2014 17:25:42 -0300
+
+aubio (0.4.1-1) unstable; urgency=medium
+
+  * New upstream release
+  * debian/copyright: simplify and update copyright
+  * debian/control: add Vcs-Git and Vcs-Browser
+
+ -- Paul Brossier <piem@debian.org>  Wed, 12 Mar 2014 00:27:21 -0300
+
+aubio (0.4.0-1) unstable; urgency=medium
+
+  * New upstream release
+  * Acknowledge NMUs (closes: #619802, #553930, #625676), thanks Alessio
+  * debian/watch: update
+  * debian/copyright: update
+  * debian/README.source: removed
+  * debian/patches: removed obsolete patches
+  * debian/aubio-tools.install: no more sounds
+  * debian/aubio-tools.manpages: updated manpages location
+  * debian/pycompat: remove obsolete file
+  * debian/source/format: bump to 3.0 (quilt)
+  * debian/libaubio2.*: moved to libaubio4
+  * debian/clean: added
+  * debian/libaubio-dev.docs: removed
+  * debian/libaubio-dev.install: remove *.la
+  * debian/python-aubio.install: move to dist-packages
+  * debian/pd-aubio.install: removed
+  * debian/docs: add README.md
+  * debian/control: remove pd-aubio
+  * debian/libaubio-doc.docs: remove obsolete files, update doxygen location
+  * debian/compat: bump to 8
+  * debian/rules: rewrite (closes: #730150)
+  * debian/control: update Build-Depends, bump debhelper and Standards-Version
+  * debian/control: remove XS-Python-Version
+  * debian/control: add Homepage
+  * debian/control: bump to libaubio4, replaces libaubio2
+  * debian/control: remove a from start of short description
+  * debian/control: use libfftw3-dev (closes: #582735)
+  * debian/aubio-tools.install: install tools
+  * debian/patches/local_mathjax: use local MathJax.js
+  * debian/rules: use current python
+  * debian/*.dirs: removed
+
+ -- Paul Brossier <piem@debian.org>  Sun, 29 Dec 2013 14:47:16 -0400
+
+aubio (0.3.2-4.2) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Replace puredata with puredata-dev in the Build-Depends field to fix
+    FTBFS (Closes: #625676).
+
+ -- Alessio Treglia <alessio@debian.org>  Thu, 05 May 2011 10:09:35 +0200
+
+aubio (0.3.2-4.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Fix FTBFS with binutils-gold (Closes: #553930).
+  * Conditionally enable ALSA depending on whether building on Linux;
+    patch from Steven McDonald (Closes: #619802).
+  * Explicitly set packaging format by putting '1.0' into the
+    debian/source/format file.
+
+ -- Alessio Treglia <alessio@debian.org>  Fri, 29 Apr 2011 15:32:33 +0200
+
+aubio (0.3.2-4) unstable; urgency=low
+
+  * Fix building of architecture dependent packages
+  * Do not compress search.js in libaubio-doc
+
+ -- Paul Brossier <piem@debian.org>  Mon, 28 Sep 2009 13:34:53 +0200
+
+aubio (0.3.2-3) unstable; urgency=low
+
+  * debian/patches/01_numarray_gnuplot.diff: pull patch from bzr rev 690
+    (closes: #478438, #512622)
+  * debian/control:
+    - split Build-Depends on multiple lines
+    - change B-D from puredata to pd (closes: #491965)
+    - fix typo python Python
+    - switch to python-numpy (see: #478438)
+    - move libaubio-dev to libdevel
+    - bump Standards-Version to 3.8.3
+    - use ${binary:Version}, not ${Source-Version}
+    - add ${shlibs:Depends}, ${misc:Depends} to libaubio-dev
+    - add Build-Depends on quilt
+    - switch to python-support
+  * debian/rules:
+    - use tiny model
+    - disable lash
+    - tighten debhelper Build-Depends to (>= 7.0.50~)
+    - move config.{sub,guess} updating to
+      debian/patches/10_uptodate_configure.diff
+  * debian/libaubio-dev.install: temporarly hack .la files until the
+    libtool dependency traverser is being fixed (closes: #465057)
+  * debian/aubio-tools.manpages: install all manpages
+  * debian/libaubio-doc.doc-base: correct section Programming
+  * debian/compat: bump to 7
+  * debian/rules: move dh_installdeb before dh_makeshlibs
+
+ -- Paul Brossier <piem@debian.org>  Mon, 28 Sep 2009 03:15:52 +0200
+
+aubio (0.3.2-2) unstable; urgency=low
+
+  * Update debian/copyright
+  * Upload to unstable (closes: #383550)
+
+ -- Paul Brossier <piem@debian.org>  Thu,  2 Nov 2006 19:36:41 +0100
+
+aubio (0.3.2-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Paul Brossier <piem@debian.org>  Tue, 31 Oct 2006 19:38:54 +0100
+
+aubio (0.3.1-1) unstable; urgency=low
+
+  * New upstream release
+  * Removed python2.3-aubio, moved to python-central
+
+ -- Paul Brossier <piem@debian.org>  Tue, 27 Jun 2006 17:46:42 +0200
+
+aubio (0.3.0-1) unstable; urgency=low
+
+  * New upstream release
+  * Add package for PureData plugins
+
+ -- Paul Brossier <piem@debian.org>  Fri, 19 May 2006 16:07:21 +0200
+
+aubio (0.2.0-1) unstable; urgency=low
+
+  * New upstream release
+  * Added -fPIC to swig python module python/aubio/Makefile.am
+  * Added manpages for aubiocut, aubiopitch and aubiotrack
+  * Splitted python-aubio and libaubio-doc packages
+
+ -- Paul Brossier <piem@debian.org>  Tue, 27 Sep 2005 16:49:09 +0100
+
+aubio (0.1.9beta5-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Paul Brossier <piem@altern.org>  Sun, 15 May 2005 16:20:03 +0100
+
+aubio (0.1.8-1) unstable; urgency=low
+
+  * New upstream release
+  * Added docbook-to-man and puredata Build-Depends
+
+ -- Paul Brossier <piem@altern.org>  Sun, 12 Dec 2004 00:01:32 +0000
+
+aubio (0.1.6-1) unstable; urgency=low
+
+  * New release
+  * Added swig and python-dev Build-Depends
+
+ -- Paul Brossier <piem@altern.org>  Sun, 26 Sep 2004 13:48:41 +0100
+
+aubio (0.1.5-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Paul Brossier <piem@altern.org>  Mon, 23 Aug 2004 21:36:58 +0200
+
+aubio (0.1.4-1) unstable; urgency=low
+
+  * New upstream release
+  * Simplifies install scripts
+
+ -- Paul Brossier <piem@altern.org>  Wed, 23 Jun 2004 18:24:55 +0100
+
+aubio (0.1.3alpha-2) unstable; urgency=low
+
+  * Manually added missing headers in libaubio-dev
+  * Added manpages for autio tools.
+  * Fixed dependancies.
+
+ -- Paul Brossier <piem@altern.org>  Wed,  5 May 2004 12:18:39 +0100
+
+aubio (0.1.3alpha-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Paul Brossier <piem@altern.org>  Tue, 27 Apr 2004 15:01:59 +0100

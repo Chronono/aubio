@@ -156,18 +156,8 @@ Py_filter_set_c_weighting (Py_filter * self, PyObject *args)
 
   err = aubio_filter_set_c_weighting (self->o, samplerate);
   if (err > 0) {
-    if (PyErr_Occurred() == NULL) {
-      PyErr_SetString (PyExc_ValueError,
-          "error when setting filter to C-weighting");
-    } else {
-      // change the RuntimeError into ValueError
-      PyObject *type, *value, *traceback;
-      PyErr_Fetch(&type, &value, &traceback);
-      Py_XDECREF(type);
-      type = PyExc_ValueError;
-      Py_XINCREF(type);
-      PyErr_Restore(type, value, traceback);
-    }
+    PyErr_SetString (PyExc_ValueError,
+        "error when setting filter to C-weighting");
     return NULL;
   }
   Py_RETURN_NONE;
@@ -184,18 +174,8 @@ Py_filter_set_a_weighting (Py_filter * self, PyObject *args)
 
   err = aubio_filter_set_a_weighting (self->o, samplerate);
   if (err > 0) {
-    if (PyErr_Occurred() == NULL) {
-      PyErr_SetString (PyExc_ValueError,
-          "error when setting filter to A-weighting");
-    } else {
-      // change the RuntimeError into ValueError
-      PyObject *type, *value, *traceback;
-      PyErr_Fetch(&type, &value, &traceback);
-      Py_XDECREF(type);
-      type = PyExc_ValueError;
-      Py_XINCREF(type);
-      PyErr_Restore(type, value, traceback);
-    }
+    PyErr_SetString (PyExc_ValueError,
+        "error when setting filter to A-weighting");
     return NULL;
   }
   Py_RETURN_NONE;
@@ -212,18 +192,8 @@ Py_filter_set_biquad(Py_filter * self, PyObject *args)
 
   err = aubio_filter_set_biquad (self->o, b0, b1, b2, a1, a2);
   if (err > 0) {
-    if (PyErr_Occurred() == NULL) {
-      PyErr_SetString (PyExc_ValueError,
-          "error when setting filter with biquad coefficients");
-    } else {
-      // change the RuntimeError into ValueError
-      PyObject *type, *value, *traceback;
-      PyErr_Fetch(&type, &value, &traceback);
-      Py_XDECREF(type);
-      type = PyExc_ValueError;
-      Py_XINCREF(type);
-      PyErr_Restore(type, value, traceback);
-    }
+    PyErr_SetString (PyExc_ValueError,
+        "error when setting filter with biquad coefficients");
     return NULL;
   }
   Py_RETURN_NONE;

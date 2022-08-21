@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#! /bin/bash
 
 # This script cross compiles aubio for windows using mingw, four times:
 #

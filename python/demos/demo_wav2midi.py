@@ -63,7 +63,7 @@ while True:
         delta = frames2tick(total_frames) - last_time
         if new_note[2] > 0:
             track.append(Message('note_off', note=int(new_note[2]),
-                velocity=127, time=delta)
+                velocity=127, time=0)
                 )
         track.append(Message('note_on',
             note=int(new_note[0]),

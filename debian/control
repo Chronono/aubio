@@ -1,0 +1,90 @@
+Source: aubio
+Section: sound
+Priority: optional
+Maintainer: Paul Brossier <piem@debian.org>
+Build-Depends: debhelper-compat (= 12),
+               libtool,
+               libjack-dev | libjack-jackd2-dev,
+               libavcodec-dev,
+               libavformat-dev,
+               libavresample-dev,
+               libavutil-dev,
+               libsndfile1-dev,
+               libsamplerate-dev,
+               libasound2-dev,
+               libfftw3-dev,
+               dh-python,
+               python3-all-dev,
+               python3-setuptools,
+               libpython3-dev,
+               python3-numpy,
+               sox,
+               python3-pytest,
+               txt2man,
+Build-Depends-Indep: doxygen,
+                     libjs-jquery,
+                     libjs-mathjax,
+Standards-Version: 4.4.1
+Homepage: https://aubio.org
+Vcs-Git: https://salsa.debian.org/piem/aubio.git
+Vcs-Browser: https://salsa.debian.org/piem/aubio
+Rules-Requires-Root: no
+
+Package: libaubio-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: libaubio5 (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Description: library for audio and music analysis, synthesis, and effects
+ aubio gathers a set of functions for audio signal segmentation and labelling.
+ The library contains a phase vocoder, onset and pitch detection functions, a
+ beat tracking algorithm and other sound processing utilities.
+ .
+ This package contains the development files for libaubio.
+
+Package: libaubio5
+Section: libs
+Architecture: any
+Multi-Arch: same
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Replaces: libaubio4
+Description: library for audio segmentation
+ aubio gathers a set of functions for audio signal segmentation and labelling.
+ The library contains a phase vocoder, onset and pitch detection functions, a
+ beat tracking algorithm and other sound processing utilities.
+ .
+ This package provides the shared library libaubio.
+
+Package: aubio-tools
+Architecture: any
+Depends: python3-aubio (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}, ${python3:Depends}
+Description: library for audio segmentation -- utilities
+ aubio gathers a set of functions for audio signal segmentation and labelling.
+ The library contains a phase vocoder, onset and pitch detection functions, a
+ beat tracking algorithm and other sound processing utilities.
+ .
+ This package provides command line tools to run the different algorithms.
+
+Package: libaubio-doc
+Section: doc
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}, libjs-jquery, libjs-mathjax
+Description: library for audio segmentation -- documentation
+ aubio gathers a set of functions for audio signal segmentation and labelling.
+ The library contains a phase vocoder, onset and pitch detection functions, a
+ beat tracking algorithm and other sound processing utilities.
+ .
+ This package provides the documentation for the C interface.
+
+Package: python3-aubio
+Section: python
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${python3:Depends}
+Suggests: python3-matplotlib
+Description: Python 3 interface for aubio, a library for audio segmentation
+ aubio gathers a set of functions for audio signal segmentation and labelling.
+ The library contains a phase vocoder, onset and pitch detection functions, a
+ beat tracking algorithm and other sound processing utilities.
+ .
+ This package provides the aubio module for Python 3.

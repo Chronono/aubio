@@ -1,0 +1,5 @@
+local_mathjax.patch
+fixtypos.patch
+fixpowerpc.patch
+fixi386.patch
+wscript_py3.patch

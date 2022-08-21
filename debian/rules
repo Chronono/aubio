@@ -1,0 +1,62 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+#export DH_VERBOSE=1
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
+LDFLAGS += -Wl,--as-needed
+
+WAF_OPTIONS = --verbose --destdir=debian/tmp --prefix=/usr --enable-fftw3f
+WAF_OPTIONS += --libdir=/usr/lib/$(DEB_HOST_MULTIARCH)
+WAF_CMD = python3 ./waf
+
+export PYBUILD_NAME=aubio
+export PYBUILD_AFTER_INSTALL_python2=rm -vrf '{destdir}/usr/bin'
+export PYBUILD_AFTER_INSTALL_python3=mv '{destdir}/usr/bin/aubio' '{destdir}/usr/bin/aubiocut' '{dir}/debian/tmp/usr/bin'
+
+export PYBUILD_BEFORE_TEST=make create_test_sounds
+export PYBUILD_AFTER_TEST=rm -rf '{dir}/python/tests/sounds'
+%:
+	dh $@ --with python3 --buildsystem=pybuild
+
+override_dh_auto_clean:
+	dh_auto_clean --buildsystem=pybuild
+	-$(WAF_CMD) distclean
+	rm -rf python/ext/config.h
+	rm -rf aubio.egg-info/
+	rm -f this_version.pyc
+	rm -f waf_gensyms.pyc
+	rm -rf python/tests/sounds
+	rm -rf .cache/ .pytest_cache/
+	rm -rf waflib/*/__pycache__/
+	rm -rf ./__pycache__/
+	# extra rules to remove files manually
+	#-find waf -name '*.pyc' -delete
+	#rm -rf .waf* .lock-waf*
+	#rm -rf build/ dist/ .waf* .lock-waf*
+	#rm -rf python/gen/ aubio.egg-info
+	#rm -rf python/lib/*.pyc python/lib/aubio/*.so
+	#rm -rf debian/tmp
+	#rm -rf manpages.refs manpages.links
+
+override_dh_auto_configure:
+	$(WAF_CMD) configure $(WAF_OPTIONS)
+
+override_dh_auto_build:
+	$(WAF_CMD) build $(WAF_OPTIONS)
+	dh_auto_build --buildsystem=pybuild
+
+override_dh_auto_test:
+	# run tests
+	LD_LIBRARY_PATH=$(CURDIR)/build/src:$(LD_LIBRARY_PATH) \
+		dh_auto_test -- --test-pytest --test-args $(CURDIR)/python/tests/
+
+override_dh_auto_install:
+	# library
+	$(WAF_CMD) install $(WAF_OPTIONS)
+	# python extension
+	dh_auto_install --buildsystem=pybuild
+	# call dh_numpy to add dependency on numpy abi
+	if [ -x /usr/bin/dh_numpy ]; then dh_numpy; fi

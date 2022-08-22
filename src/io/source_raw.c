@@ -35,8 +35,8 @@ struct _aubio_source_t {
 // CALLBACKS DEFINITION
 void aubio_source_raw_do(aubio_source_t * s, fvec_t *data_vec, uint_t *read)
 {
-	size_t size_buffer = ((aubio_source_raw_data_t*)s)->size_buffer;
-	size_t size_to_do = ((size_buffer - *read) >= 256) ? (256) : (size_buffer - *read);
+	uint64_t size_buffer = ((aubio_source_raw_data_t*)s)->size_buffer;
+	uint64_t size_to_do = ((size_buffer - *read) >= 256) ? (256) : (size_buffer - *read);
 	data_vec->length = size_buffer;
 
 	if (!size_to_do) {

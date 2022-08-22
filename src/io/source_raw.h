@@ -2,7 +2,6 @@
 #define AUBIO_SOURCE_RAW
 
 #include <stdint.h>
-#include "../../../src/lib_ad.h"
 #include "../aubio.h"
 
 // Remplace les infos transmises normalement 
@@ -10,7 +9,7 @@
 struct aubio_source_raw_data
 {
 	smpl_t * buffer;
-	size_t size_buffer;
+	uint64_t size_buffer;
 	uint8_t size_point;
 	uint32_t samplerate;
 	uint8_t nb_channels;

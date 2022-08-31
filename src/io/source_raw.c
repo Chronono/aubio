@@ -1,13 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <aubio/aubio.h>
-#include <string.h>
-
 #include "source_raw.h"
 
-// FOR MACRO AUBIO_NEW AUBIO_ARRAY
-#include "../../aubio/src/aubio_priv.h"
-//#include "../aubio/aubio-0.4.9/src/aubio.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 
 typedef void (*aubio_source_do_t)(aubio_source_t * s, fvec_t *data, uint_t *read);
 typedef void (*aubio_source_do_multi_t)(aubio_source_t * s, fmat_t *data, uint_t *read);

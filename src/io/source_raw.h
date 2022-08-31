@@ -2,7 +2,9 @@
 #define AUBIO_SOURCE_RAW
 
 #include <stdint.h>
-#include <aubio/aubio.h>
+#include "../aubio_priv.h"
+#include "../fmat.h"
+#include "source.h"
 
 // Remplace les infos transmises normalement 
 // par le header d'un fichier audio
